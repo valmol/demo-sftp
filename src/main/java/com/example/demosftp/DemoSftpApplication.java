@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.InputStream;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 @SpringBootApplication
 public class DemoSftpApplication implements CommandLineRunner {
@@ -28,7 +31,9 @@ public class DemoSftpApplication implements CommandLineRunner {
 		System.out.println("Get OK");
 		SftpATTRS stat = channel.stat(args[4]);
 		System.out.println("Stat OK OK");
-		
+		LocalDate lastModifierDate = Instant.ofEpochMilli((long) stat.getMTime() * 1000L).atZone(ZoneId.of("UTC")).toLocalDate();
+		System.out.println("Read modification date OK");
+
 	}
 
 
